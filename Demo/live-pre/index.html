@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Resume Website - Okobiz</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #121212;
+            color: #fff;
+        }
+
+        /* Header Styles */
+        header {
+            background: #1a1a1a;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            transition: background 0.3s ease;
+        }
+
+        .logo {
+            color: #4a90e2;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #4a90e2;
+        }
+
+        .contact-info {
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Product Details */
+        .product-header {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .status-badge {
+            background: rgba(74, 144, 226, 0.2);
+            color: #4a90e2;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        .main-content {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .preview-container {
+            background: #222222;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .preview-image:hover {
+            transform: scale(1.05);
+        }
+
+        .live-preview-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4a90e2;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .live-preview-btn:hover {
+            background-color: #357ab8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            color: black;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+
+        .pricing-card {
+            background: #111111;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .price-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333333;
+        }
+
+        .checkbox-list {
+            list-style: none;
+            margin: 0.5rem 0;
+        }
+
+        .checkbox-list li {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .total-price {
+            margin: 1rem 0;
+            padding: 0.5rem 0;
+            border-top: 1px solid #333333;
+            border-bottom: 1px solid #333333;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: column;
+        }
+
+        .btn {
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #357ab8;
+        }
+
+        .btn-secondary {
+            background: #333333;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #444444;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            margin: 2% auto;
+            background: white;
+            border-radius: 0.5rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: #333333;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Softoryze</div>
+        <nav>
+            <ul>
+                <li><a href="/diffco.us/index.html">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#blogs">Blogs</a></li>
+                <li><a href="#team">Amazing Team</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="contact-info">
+            <i class="fas fa-phone"></i>
+            <span>Need help? +88 0181606311</span>
+        </div>
+    </header>
+
+    <div class="product-header">
+        <h1>Personal Resume Website</h1>
+        <span class="status-badge">Recently Updated</span>
+        <span class="status-badge">Well Documented</span>
+    </div>
+
+    <div class="main-content">
+        <div class="preview-section">
+            <div class="preview-container">
+                <img src="https://assets.onecompiler.app/42uvjq4qp/437wkxkxs/70K%20TK.png" alt="Personal Resume Website Preview" class="preview-image">
+                <a href="#" class="live-preview-btn" onclick="openPreview()">
+                    <i class="fas fa-eye"></i> LIVE PREVIEW
+                </a>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-book fa-2x"></i>
+                    <h3>Well Documentation</h3>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset fa-2x"></i>
+                    <h3>Get Support 24/7</h3>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tools fa-2x"></i>
+                    <h3>Free Maintenance</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Section -->
+        <div class="pricing-card">
+            <div class="price-header">
+                <span>Regular Price</span>
+                <span>34,900 tk.</span>
+            </div>
+
+            <!-- Checkbox List -->
+            <ul class="checkbox-list">
+                <li><input type="checkbox" checked disabled> Quality checked by Okobiz</li>
+                <li><input type="checkbox" checked disabled> Future updates</li>
+                <li><input type="checkbox" checked disabled> 3 months support from Okobiz</li>
+                <li><input type="checkbox"> Maintenance support (12 months) - +5000 Taka</li>
+                <li><input type="checkbox"> Domain & Hosting (1 year) - +4000 Taka</li>
+                <li><input type="checkbox"> Google Analytics integration - +3000 Taka</li>
+                <li><input type="checkbox"> Data privacy & security - +2000 Taka</li>
+                <li><input type="checkbox"> Brand Logo - +6000 Taka</li>
+            </ul>
+
+            <!-- Total Price Section -->
+            <div class="total-price">
+                <h3>Total Price: 34,900 tk.</h3>
+            </div>
+
+            <!-- Button Group -->
+            <div class="button-group">
+                <button class="btn btn-primary">ORDER NOW</button>
+                <button class="btn btn-secondary">LET'S TALK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Live Preview -->
+    <div class="modal" id="previewModal">
+        <div class="modal-content">
+            <!-- Close button for modal -->
+            <div class="close-modal" onclick="closePreview()">×</div>
+            <!-- Iframe for live preview -->
+            <iframe class="preview-iframe" src=""></iframe>
+        </div>
+    </div>
+
+    <!-- JavaScript for Modal Functionality and Price Calculation -->
+    <script>
+        // Preview Modal functionality
+        function openPreview() {
+            document.getElementById('previewModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('previewModal');
+            if (event.target == modal) {
+                closePreview();
+            }
+        }
+
+        // Calculate total price based on selected options
+        const checkboxes = document.querySelectorAll('.checkbox-list input[type=checkbox]');
+        const totalPriceElement = document.querySelector('.total-price h3');
+        let basePrice = 34900;
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateTotalPrice);
+        });
+
+        function updateTotalPrice() {
+            let total = basePrice;
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked && !checkbox.disabled) {
+                    const price = parseInt(checkbox.parentElement.textContent.match(/\d+/)[0]);
+                    total += price || 0; // Safeguard against NaN
+                }
+            });
+            totalPriceElement.textContent = `Total Price: ${total.toLocaleString()} tk.`; // Format number
+        }
+    </script>
+</body>
+</html>

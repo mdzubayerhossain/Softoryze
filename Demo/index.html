@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Softoryze - Premium Websites</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2db563;
+            --background-dark: #121212;
+            --text-light: #ffffff;
+            --text-dark: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: var(--background-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .logo {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Search and Filter Section */
+        .search-filter-section {
+            max-width: 1200px;
+            margin: 6rem auto 1rem;
+            padding: 0 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .category-btn, .search-bar {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .category-btn {
+            background: var(--secondary-color);
+            color: var(--text-light);
+            min-width: 150px;
+        }
+
+        .search-bar {
+            flex: 1;
+            background: rgba(255,255,255,0.1);
+            color: var(--text-light);
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .sort-select {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-light);
+            padding: 0.5rem;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 1rem;
+        }
+
+        .sidebar {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            transition: background 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .portfolio-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .portfolio-info {
+            padding: 1rem;
+        }
+
+        .live-preview-btn {
+            display: block;
+            background: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 0.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .live-preview-btn:hover {
+            background: color-mix(in srgb, var(--primary-color) 80%, white);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--background-dark);
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-filter-section {
+                flex-direction: column;
+            }
+
+            .portfolio-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Softoryze</div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/diffco.us/index.html" class="active">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#blogs">Blogs</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="search-filter-section">
+        <button class="category-btn">All Categories</button>
+        <input type="text" class="search-bar" placeholder="Search Websites" id="searchInput">
+    </div>
+
+    <div class="portfolio-section">
+        <div class="portfolio-header">
+            <h2>Premium Websites</h2>
+            <select class="sort-select" id="sortSelect">
+                <option value="recent">Most Recent</option>
+                <option value="popular">Most Popular</option>
+                <option value="rated">Top Rated</option>
+            </select>
+        </div>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#all">All Websites</a></li>
+                    <li><a href="#ecommerce">E-Commerce</a></li>
+                    <li><a href="#business">Business</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#blog">Blog & News</a></li>
+                    <li><a href="#health">Health</a></li>
+                    <li><a href="#restaurant">Restaurant</a></li>
+                    <li><a href="#realestate">Real Estate</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#hotel">Hotel & Resort</a></li>
+                    <li><a href="#travel">Travel & Tourism</a></li>
+                </ul>
+            </aside>
+
+            <div class="portfolio-grid" id="portfolioGrid">
+                <div class="portfolio-item">
+                    <img src="https://assets.onecompiler.app/42uvjq4qp/437wkxkxs/70K%20TK.png" alt="Personal Resume Website">
+                    <div class="portfolio-info">
+                        <h3>Personal Resume Website</h3>
+                        <p>by Softoryze</p>
+                        <a href="live-pre/index.html" class="live-preview-btn">Live Preview</a>
+                    </div>
+                </div>
+                <!-- More portfolio items can be dynamically added -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const portfolioGrid = document.getElementById('portfolioGrid');
+        const portfolioItems = portfolioGrid.querySelectorAll('.portfolio-item');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            portfolioItems.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                item.style.display = title.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+
+        // Sort functionality
+        const sortSelect = document.getElementById('sortSelect');
+        sortSelect.addEventListener('change', (e) => {
+            const sortedItems = Array.from(portfolioItems).sort((a, b) => {
+                const titleA = a.querySelector('h3').textContent;
+                const titleB = b.querySelector('h3').textContent;
+                return e.target.value === 'recent' 
+                    ? titleA.localeCompare(titleB) 
+                    : titleB.localeCompare(titleA);
+            });
+
+            portfolioGrid.innerHTML = '';
+            sortedItems.forEach(item => portfolioGrid.appendChild(item));
+        });
+    </script>
+</body>
+</html>
